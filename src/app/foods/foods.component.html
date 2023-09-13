@@ -1,0 +1,69 @@
+<div class = "page-header">
+    <div class="container">
+        <h1>Yemek Listesi</h1>
+    </div>
+</div>
+
+<div class ="container mt-1">
+    <div class = "row end-xs" >
+        <div class="col-xs-12">
+            <a mat-raised-button style="margin-right: 10px;" color ="primary" routerLink="/add-food">Yeni Yemek</a>
+            <input type ="text" class="search-input" placeholder="Ara" [(ngModel)]="filterString" (keyup)="filterFoods()">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="mt-1 mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Yemek Adı </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fiyat </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="productImage">
+                <th mat-header-cell *matHeaderCellDef> Ürün Resmi </th>
+                <td mat-cell *matCellDef="let element">
+                    <img [src]="element.productImage" alt="Product Image" width="100" height="100">
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="calories">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Kalori </th>
+                <td mat-cell *matCellDef="let element"> {{element.calories}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="preptime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Hazırlama Süresi </th>
+                <td mat-cell *matCellDef="let element"> {{element.preptime}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID numarası </th>
+                <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <a [routerLink]="['/products/',element._id]">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+</div>
